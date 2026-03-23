@@ -21,7 +21,7 @@ int main(){
 
     scanf("%d%d", &x, &y);
     if (x == y){
-        // 当x和y相等时，只有一个数n满足条件，即n = x。
+        // 当x和y相等时，只有一个数n满足条件，即n = 1。
         printf("1\n");
         return 0;
     }
