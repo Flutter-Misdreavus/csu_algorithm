@@ -7,45 +7,41 @@
 #include <queue>
 #include <algorithm>
 #include <iterator>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 
 using namespace std;
+using namespace __gnu_pbds;
+using Pinghengshu = tree<pair<int, int>, null_type, less<pair<int, int>>, rb_tree_tag, tree_order_statistics_node_update>; //定义类型别名
 
 int main(){
-    multiset<int> m;
-    int op;
-    int n;
-    int x;
+    Pinghengshu m;
+    int x, n, op;
+    int id = 0; // 为了区分重复元素，给每一个元素一个id
 
     scanf("%d", &n);
     for(int i = 0; i < n; i++){
-        scanf("%d", &op);
-        scanf("%d", &x);
+        scanf("%d%d", &op, &x);
         if(op == 1){
-            m.insert(x);
+            id++;
+            m.insert({x, id});
         }else if(op == 2){
-            // 使用迭代器，只删除一个
-            auto it = m.find(x);
-            if(it != m.end()){
-                m.erase(it);
-            }
+            auto it = m.lower_bound({x, 0});
+            m.erase(it);
         }else if(op == 3){
-            auto it = m.lower_bound(x);
-            printf("%d\n", (int)distance(m.begin(), it) + 1);
+            auto it = m.lower_bound({x, 0});
+            printf("%d\n", (int)(m.order_of_key(*it) + 1));
         }else if(op == 4){
-            auto it = m.begin();
-            for(int i = 1; i < x; i++){
-                it++;
-            }
-            printf("%d\n", *it);
+            printf("%d\n", (*(m.find_by_order(x - 1))).first);
         }else if(op == 5){
-            printf("%d\n", *(--m.lower_bound(x)));
+            printf("%d\n", (*(--m.lower_bound({x, 0}))).first);
         }else if(op == 6){
-            printf("%d\n", *(m.upper_bound(x)));
+            printf("%d\n", (*(m.upper_bound({x, 99999}))).first);
         }
 
         // printf("\n");
         // for(auto it = m.begin(); it != m.end(); it++){
-        //     printf("%d ", *it);
+        //     printf("%d ", (*it).first);
         // }
         // printf("\n");
     }
