@@ -18,6 +18,7 @@ using namespace std;
 vector<int> dis;
 vector<vector<pair<int, int>>> ditu;
 vector<bool> book;
+priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pd;
 
 int findmin(int n){
 	int minpos = 0;
@@ -41,6 +42,7 @@ void relax(int kaishi){
 		c = (*it).second;
 		if(dis[b] > dis[kaishi] + c){
 			dis[b] = dis[kaishi] + c;
+			pd.push({dis[b], b});
 		}
 	}
 }
@@ -62,10 +64,22 @@ int main(){
 		ditu[a].push_back({b, c});
 	}
 
-	for(int i = 0; i < n; i++){
-		a = findmin(n);
-		relax(a);
+	pd.push({0, s});
+	while(!pd.empty()){
+		auto [c ,b] = pd.top();
+		pd.pop();
+		if(book[b]){
+			continue;
+		}
+
+		book[b] = true;
+		relax(b);
 	}
+
+	// for(int i = 0; i < n; i++){
+	// 	a = findmin(n);
+	// 	relax(a);
+	// }
 
 	for(int i = 1; i <= n; i++){
 		printf("%d ", dis[i]);
