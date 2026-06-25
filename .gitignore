@@ -1,0 +1,24 @@
+.claude/
+.vscode/
+
+**/output/
+
+*.pdf
+.DS_Store
+node_modules/
+.mcp.json
+package-lock.json
+package.json
+screenshot.js
+*.log
+
+# 洛谷登录态（含 cookie），请勿提交
+luogu-state.json
+.playwright-mcp/
+
+# 忽略题目目录中的无扩展名可执行文件（Linux/macOS 编译产物）
+**/P[0-9]*[0-9]
+**/B[0-9]*[0-9]
+**/T[0-9]*[0-9]
+**/U[0-9]*[0-9]
+
